@@ -6,7 +6,7 @@ import Header from '../../components/Header';
 import LeftNav from '../../components/LeftNav';
 import Category from '../Category';
 import Home from '../Home';
-import Product from '../Product';
+import Product from '../Product/index';
 import Role from '../Role';
 import User from '../User';
 import Bar from '../Charts/Bar';

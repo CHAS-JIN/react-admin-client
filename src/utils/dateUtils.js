@@ -6,10 +6,19 @@ export function formateDate(time) {
     if (seconds.length < 2) {
         seconds = '0' + seconds
     }
+    let hours = `${date.getHours()}`
+    if (hours.length < 2) {
+        hours = '0' + hours
+    }
+    let minutes = `${date.getMinutes()}`
+    if (minutes.length < 2) {
+        minutes = '0' + minutes
+    }
+
     return date.getFullYear() + '-'
         + (date.getMonth() + 1) + '-'
         + date.getDate() + ' '
-        + date.getHours() + ':'
-        + date.getMinutes() + ':'
+        + hours + ':'
+        + minutes + ':'
         + seconds
 }

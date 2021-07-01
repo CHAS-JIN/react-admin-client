@@ -55,7 +55,9 @@ class LeftNav extends Component {
     render() {
         // 当前请求的路由路径
         let path = this.props.location.pathname
-        const openKey = this.openKey
+        this.menuNodes = this.getMenuNodes(menuList)
+        const openKey = this.openKey || path
+
         return (
             <div className='left-nav'>
 

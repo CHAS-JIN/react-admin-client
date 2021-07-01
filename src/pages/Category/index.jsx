@@ -43,7 +43,7 @@ export default class Category extends Component {
 
     // 获取列表数据
     getCategorys = async (parentId) => {
-        // 再发请求前，显示loading
+        // 在发请求前，显示loading
         this.setState({ loading: true })
         parentId = parentId || this.state.parentId
         const result = await reqCategorys(parentId)
@@ -177,11 +177,12 @@ export default class Category extends Component {
                     <Button type='primary' icon={<PlusOutlined />} onClick={this.showAdd}>添加</Button>
                 }
             >
-                <Table dataSource={parentId === '0' ? categorys : subCategorys}
+                <Table
+                    dataSource={parentId === '0' ? categorys : subCategorys}
                     columns={this.columns}
                     bordered
                     rowKey='_id'
-                    pagination={{ defaultPageSize: 5, showQuickJumper: true }}
+                    pagination={{ defaultPageSize: 5}}
                     loading={loading}
                 />
 

@@ -18,6 +18,21 @@ export const reqAddCategory = (categoryName, parentId) => ajax('/manage/category
 // 更新分类
 export const reqUpdateCategory = ({categoryName, categoryId}) => ajax('/manage/category/update', {categoryName,categoryId}, 'POST')
 
+// 获取商品列表
+export const reqProducts = (pageNum,pageSize) => ajax('/manage/product/list', {pageNum,pageSize})
+
+// 搜索商品
+export const reqSearchProducts = (pageNum,pageSize,searchType,keyWord) => ajax('/manage/product/search', {pageNum,pageSize,[searchType]:keyWord})
+
+// 添加商品
+export const reqAddProduct = () => ajax('/manage/product/add', {}, 'POST')
+
+// 更新商品
+export const reqUpdateProduct = () => ajax('/manage/product/update', {}, 'POST')
+
+// 更新商品状态
+export const reqUpdateProductStatus = () => ajax('/manage/product/updateStatus', {}, 'POST')
+
 // 获取天气
 export const reqWeather = () => {
 
