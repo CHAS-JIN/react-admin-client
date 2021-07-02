@@ -27,7 +27,7 @@ class LeftNav extends Component {
             } else {
                 // 有子菜单
 
-                const cItem = item.children.find(cItem => cItem.key === path)
+                const cItem = item.children.find(cItem => path.indexOf(cItem.key)===0)// 在子路由界面时打开子菜单
                 if (cItem) {
                     this.openKey = item.key
                 }
@@ -56,6 +56,10 @@ class LeftNav extends Component {
         // 当前请求的路由路径
         let path = this.props.location.pathname
         this.menuNodes = this.getMenuNodes(menuList)
+        // 当前请求的是商品或其子路由界面
+        if (path.indexOf('/product')===0) {
+            path = '/product'
+        }
         const openKey = this.openKey || path
 
         return (

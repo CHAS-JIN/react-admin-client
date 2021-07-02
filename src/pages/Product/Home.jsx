@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom';
 import { PlusOutlined, ExclamationCircleOutlined } from '@ant-design/icons'
-import { Card, Table, Button, Select, Input, Modal } from 'antd';
-import { reqProducts, reqSearchProducts } from '../../api/index'
+import { Card, Table, Button, Select, Input, Modal, message } from 'antd';
+import { reqProducts, reqSearchProducts, reqUpdateStatus } from '../../api/index'
 import { PAGE_SIZE } from '../../utils/constant';
 
 const Option = Select.Option
@@ -40,24 +40,21 @@ class Home extends Component {
                 title: '状态',
                 dataIndex: 'status',
                 width: 80,
-                render: (status) => {
-                    if (status === 1) return status = '在售'
-                    return status = '已下架'
-                }
+                render: (status) => status === 1 ? '在售' : '已下架'
+
             },
             {
                 title: '操作',
                 dataIndex: '',
                 width: 300,
                 render: (product) => {
-                    let upStatus
-                    if (product.status === 1) upStatus = '下架'
-                    if (product.status === 2) upStatus = '上架'
+                    const { status, _id } = product
+                    const newStatus = status === 1 ? 2 : 1
                     return (
                         <span>
-                            <Button type='link' onClick={() => this.showDetails(product)}>查看详情</Button>
-                            <Button type='primary' style={{ marginRight: 10 }} onClick={() => this.showUpdate(product)}>修改分类</Button>
-                            <Button type='danger' onClick={() => this.updateStatus(product)}>{upStatus}</Button>
+                            <Button type='link' onClick={() => this.props.history.push('/product/detail',product)}>查看详情</Button>
+                            <Button type='primary' style={{ marginRight: 10 }} onClick={() => this.props.history.push('/product/addupdate',product)}>修改分类</Button>
+                            <Button type='danger' onClick={() => this.updateStatus(_id, status, newStatus)}>{status === 1 ? '下架' : '上架'}</Button>
                         </span>
                     )
                 }
@@ -90,9 +87,22 @@ class Home extends Component {
         }
     }
 
-    // 显示商品详情
-    showDetails = (product) => {
-        this.props.history.push('/product/detail')
+    // 更改商品状态
+    updateStatus = (_id, status, newStatus) => {
+        Modal.confirm({
+            title: `确定要${status === 1 ? '下架' : '上架'}这个商品吗？`,
+            icon: <ExclamationCircleOutlined />,
+            onOk: async () => {
+                const result = await reqUpdateStatus(_id, newStatus)
+                if (result.status === 0) {
+                    message.success(`${status === 1 ? '下架' : '上架'}商品成功`)
+                    // 更新当前页面
+                    this.getProducts(this.pageNum)
+                }
+            },
+            cancelText: '取消',
+            okText: '确认'
+        });
     }
 
     // 显示修改页面
@@ -106,24 +116,6 @@ class Home extends Component {
         this.props.history.push('/product/addupdate')
     }
 
-    // 更改商品状态
-    updateStatus = (product) => {
-        let status = product.status
-        if (product.status === 1) status = '下架'
-        if (product.status === 2) status = '上架'
-        Modal.confirm({
-            title: `确定要${status}这个商品吗？`,
-            icon: <ExclamationCircleOutlined />,
-            onOk() {
-                /* return new Promise((resolve, reject) => {
-                    setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
-                }).catch(() => console.log('Oops errors!')); */
-
-            },
-            cancelText: '取消',
-            okText: '确认'
-        });
-    }
 
 
 
@@ -181,7 +173,7 @@ class Home extends Component {
                         total,
                         onChange: this.getProducts  /* (page) => this.getProducts(page) */
                     }}
-                    
+
                 />
 
             </Card>

@@ -6,33 +6,6 @@ import { message } from 'antd'
 // 登录接口
 export const reqLogin = (username, password) => ajax('/login', { username, password }, 'POST')
 
-// 添加用户接口
-export const reqAddUser = (user) => ajax('/manage/user/add', user, 'POST')
-
-// 获取一级/二级分类列表
-export const reqCategorys = (parentId) => ajax('/manage/category/list', {parentId})
-
-// 添加分类
-export const reqAddCategory = (categoryName, parentId) => ajax('/manage/category/add', {categoryName,parentId}, 'POST')
-
-// 更新分类
-export const reqUpdateCategory = ({categoryName, categoryId}) => ajax('/manage/category/update', {categoryName,categoryId}, 'POST')
-
-// 获取商品列表
-export const reqProducts = (pageNum,pageSize) => ajax('/manage/product/list', {pageNum,pageSize})
-
-// 搜索商品
-export const reqSearchProducts = (pageNum,pageSize,searchType,keyWord) => ajax('/manage/product/search', {pageNum,pageSize,[searchType]:keyWord})
-
-// 添加商品
-export const reqAddProduct = () => ajax('/manage/product/add', {}, 'POST')
-
-// 更新商品
-export const reqUpdateProduct = () => ajax('/manage/product/update', {}, 'POST')
-
-// 更新商品状态
-export const reqUpdateProductStatus = () => ajax('/manage/product/updateStatus', {}, 'POST')
-
 // 获取天气
 export const reqWeather = () => {
 
@@ -47,6 +20,35 @@ export const reqWeather = () => {
             }
         })
     })
-
-
 }
+
+
+
+
+// 获取一级/二级分类列表
+export const reqCategorys = (parentId) => ajax('/manage/category/list', {parentId})
+
+// 添加分类
+export const reqAddCategory = (categoryName, parentId) => ajax('/manage/category/add', {categoryName,parentId}, 'POST')
+
+// 更新分类
+export const reqUpdateCategory = ({categoryName, categoryId}) => ajax('/manage/category/update', {categoryName,categoryId}, 'POST')
+
+
+
+
+
+// 获取商品列表
+export const reqProducts = (pageNum,pageSize) => ajax('/manage/product/list', {pageNum,pageSize})
+
+// 搜索商品
+export const reqSearchProducts = (pageNum,pageSize,searchType,keyWord) => ajax('/manage/product/search', {pageNum,pageSize,[searchType]:keyWord})
+
+// 更新商品状态
+export const reqUpdateStatus = (productId,status) => ajax('/manage/product/updateStatus', {productId,status}, 'POST')
+
+// 获取类名
+export const reqCategoryName = (categoryId) => ajax('/manage/category/info',{categoryId})
+
+// 更新商品
+export const reqUpdateProduct = () => ajax('/manage/product/update', {}, 'POST')
