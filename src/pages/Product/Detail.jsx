@@ -17,16 +17,17 @@ export default class Detail extends Component {
     async componentDidMount() {
         const { pCategoryId, categoryId } = this.props.location.state
         if (pCategoryId === '0') {
-            const pCategoryName = await reqCategoryName(pCategoryId)
+            const pCategoryName = await reqCategoryName(categoryId)
             this.setState({
                 pCategoryName: pCategoryName.data.name,
             })
         } else {
-            const pCategoryName = await reqCategoryName(pCategoryId)
-            const categoryName = await reqCategoryName(categoryId)
+            // const pCategoryName = await reqCategoryName(pCategoryId)
+            // const categoryName = await reqCategoryName(categoryId)
+            const results = await Promise.all([reqCategoryName(pCategoryId),reqCategoryName(categoryId)])
             this.setState({
-                pCategoryName: pCategoryName.data.name,
-                categoryName: categoryName.data.name
+                pCategoryName: results[0].data.name,
+                categoryName: results[1].data.name
             })
         }
     }

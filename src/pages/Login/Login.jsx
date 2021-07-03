@@ -25,10 +25,9 @@ function Login(props) {
     const onFinish = async (values) => {
         const { username, password } = values
         // 简化Promise对象使用，以同步编码方式(没有回调函数)实现异步流程
-
+        // debugger
         // 得到Promise异步执行成功的Value
-        const response = await reqLogin(username, password)
-        const result = response.data
+        const result = await reqLogin(username, password)
         // console.log(result);
         if (result.status === 0) { // 登录成功
             message.success('登录成功！')

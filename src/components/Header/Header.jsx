@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import './index.less'
 import { reqWeather } from '../../api';
 import { formateDate } from '../../utils/dateUtils';
@@ -7,7 +7,7 @@ import storageUtils from '../../utils/storageUtils';
 import { withRouter } from 'react-router-dom';
 import menuList from '../../config/menuConfig';
 import { Modal, Button } from 'antd';
-import {ExclamationCircleOutlined} from '@ant-design/icons'
+import { ExclamationCircleOutlined } from '@ant-design/icons'
 
 function Header(props) {
 
@@ -41,7 +41,7 @@ function Header(props) {
             if (item.key === path) {
                 title = item.title
             } else if (item.children) {
-                const result = item.children.find(cItem => cItem.key === path)
+                const result = item.children.find(cItem => path.indexOf(cItem.key) === 0) // 子路由标题显示path.indexOf()===0
                 if (result) {
                     title = result.title
                 }
@@ -59,10 +59,10 @@ function Header(props) {
             okText: '确认',
             cancelText: '取消',
             // 确认退出，删除数据并返回登录界面
-            onOk () {
+            onOk() {
                 // 删除数据
                 storageUtils.removeUser()
-                memoryUtils.user={}
+                memoryUtils.user = {}
 
                 // 返回登录界面
                 props.history.replace('/login')

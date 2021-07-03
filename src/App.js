@@ -1,7 +1,7 @@
 import { Route, Switch } from "react-router-dom";
 import React from "react";
-import Admin from "./pages/Admin";
-import Login from "./pages/Login";
+import Admin from "./pages/Admin/Admin";
+import Login from "./pages/Login/Login";
 
 export default function App() {
   return (
