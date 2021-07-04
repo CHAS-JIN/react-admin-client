@@ -9,6 +9,12 @@ const Option = Select.Option
 
 class Home extends Component {
 
+    constructor(props){
+        super(props)
+        // 初始化列表
+        this.initColumns()
+    }
+
     state = {
         loading: false,
         products: [],
@@ -122,10 +128,10 @@ class Home extends Component {
 
 
 
-
+/* 
     UNSAFE_componentWillMount() {
         this.initColumns()
-    }
+    } */
 
     componentDidMount() {
         this.getProducts(1)

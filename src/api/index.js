@@ -57,3 +57,19 @@ export const reqCategoryName = (categoryId) => ajax('/manage/category/info',{cat
 
 // 添加或更新商品
 export const reqAddOrUpdateProduct = (product) => ajax('/manage/product/' + (product._id?'update':'add'), product, 'POST')
+
+
+
+
+
+
+// 获取角色列表
+export const reqRoles = () => ajax('/manage/role/list',{})
+
+// 添加角色
+export const reqAddRole = (roleName) => ajax('/manage/role/add', {roleName}, 'POST')
+
+// 更新角色
+export const reqUpdateRole = (_id,menus,auth_time,auth_name) => ajax('/manage/role/update', {_id,menus,auth_time,auth_name}, 'POST')
+
+

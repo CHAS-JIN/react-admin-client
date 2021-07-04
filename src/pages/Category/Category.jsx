@@ -4,8 +4,15 @@ import { PlusOutlined, ArrowRightOutlined } from '@ant-design/icons'
 import { reqCategorys, reqAddCategory, reqUpdateCategory } from '../../api';
 import AddForm from './AddForm';
 import UpdateForm from './UpdateForm';
+import {PAGE_SIZE} from '../../utils/constant';
 
 export default class Category extends Component {
+
+    constructor(props){
+        super(props)
+        // 初始化列表
+        this.initColumns()
+    }
 
     state = {
         categorys: [],      // 一级列表
@@ -150,9 +157,9 @@ export default class Category extends Component {
         })
     }
 
-    UNSAFE_componentWillMount() {
+/*     UNSAFE_componentWillMount() {
         this.initColumns()
-    }
+    } */
 
     componentDidMount() {
         // 获取一级列表
@@ -182,7 +189,7 @@ export default class Category extends Component {
                     columns={this.columns}
                     bordered
                     rowKey='_id'
-                    pagination={{ defaultPageSize: 5}}
+                    pagination={{ defaultPageSize: PAGE_SIZE}}
                     loading={loading}
                 />
 

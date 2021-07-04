@@ -9,6 +9,18 @@ const { Item } = Form
 const { TextArea } = Input
 
 export default class AddUpdate extends Component {
+
+    constructor(props) {
+        super(props)
+        // 取出product携带的state，若是添加操作则没值，若是修改则有值
+        const product = this.props.location.state
+
+        this.product = product || {}
+
+        // 是否是更新的标识
+        this.isUpdate = !!product
+    }
+
     formRef = createRef()
     picRef = createRef()
     detailRef = createRef()
@@ -130,7 +142,7 @@ export default class AddUpdate extends Component {
         }
     }
 
-    UNSAFE_componentWillMount() {
+/*     UNSAFE_componentWillMount() {
         // 取出product携带的state，若是添加操作则没值，若是修改则有值
         const product = this.props.location.state
 
@@ -139,7 +151,7 @@ export default class AddUpdate extends Component {
         // 是否是更新的标识
         this.isUpdate = !!product
 
-    }
+    } */
 
     componentDidMount() {
         this.getCategorys('0')

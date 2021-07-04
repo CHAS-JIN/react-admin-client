@@ -22,3 +22,4 @@ export function formateDate(time) {
         + minutes + ':'
         + seconds
 }
+

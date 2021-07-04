@@ -13,7 +13,7 @@ import Bar from '../Charts/Bar';
 import Pie from '../Charts/Pie';
 import Line from '../Charts/Line';
 import Orders from '../Orders/Orders';
-import NotFound from '../NotFound/NotFound';
+// import NotFound from '../NotFound/NotFound';
 
 const { Content, Footer, Sider } = Layout;
 

@@ -13,6 +13,11 @@ const { SubMenu } = Menu;
 
 class LeftNav extends Component {
 
+    constructor(props){
+        super(props)
+        // 初始化菜单栏
+        this.menuNodes = this.getMenuNodes(menuList)
+    }
 
     getMenuNodes = (menuList) => {
         const path = this.props.location.pathname
@@ -48,9 +53,9 @@ class LeftNav extends Component {
     在第一次render()之前执行一次
     为第一个render()准备数据(必须同步的)
      */
-    UNSAFE_componentWillMount() {
-        this.menuNodes = this.getMenuNodes(menuList)
-    }
+    // UNSAFE_componentWillMount() {
+    //     this.menuNodes = this.getMenuNodes(menuList)
+    // }
 
     render() {
         // 当前请求的路由路径
