@@ -26,7 +26,7 @@ class Role extends Component {
     }
 
     // 初始化列表
-    initColumns = (params) => {
+    initColumns = () => {
         this.columns = [
             {
                 title: '角色名称',
@@ -139,7 +139,11 @@ class Role extends Component {
                     onRow={this.onRow}
                     rowSelection={{
                         type: 'radio',
-                        selectedRowKeys: [role._id]
+                        selectedRowKeys: [role._id],
+                        // 选中radio的回调函数 效果同onRow
+                        onSelect:(role) => {
+                            this.setState({role})
+                        }
                     }}
                 />
 

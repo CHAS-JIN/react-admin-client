@@ -73,3 +73,20 @@ export const reqAddRole = (roleName) => ajax('/manage/role/add', {roleName}, 'PO
 export const reqUpdateRole = (_id,menus,auth_time,auth_name) => ajax('/manage/role/update', {_id,menus,auth_time,auth_name}, 'POST')
 
 
+
+
+
+
+// 获取用户列表
+export const reqUsers = () => ajax('/manage/user/list',{})
+
+// 删除用户
+export const reqDeleteUser = (userId) => ajax('/manage/user/delete',{userId},'POST')
+
+// 添加用户
+export const reqAddUser = (user) => ajax('/manage/user/add', user, 'POST')
+
+// 修改用户
+export const reqUpdateUser = (user) => ajax('/manage/user/update', user, 'POST')
+
+
