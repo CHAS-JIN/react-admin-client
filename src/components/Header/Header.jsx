@@ -1,14 +1,16 @@
 import React, { useEffect, useState, useRef } from 'react'
-import './index.less'
-import { reqWeather } from '../../api';
-import { formateDate } from '../../utils/dateUtils';
-import memoryUtils from '../../utils/memoryUtils';
-import storageUtils from '../../utils/storageUtils';
 import { withRouter } from 'react-router-dom';
-import menuList from '../../config/menuConfig';
+import {connect} from 'react-redux';
+import {logout} from '../../redux/actions';
+
+import './index.less'
 import { Modal, Button } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 
+import { reqWeather } from '../../api';
+import { formateDate } from '../../utils/dateUtils';
+
+// UI 组件
 function Header(props) {
 
     const [currentTime, setCurrentTime] = useState(formateDate(Date.now()))
@@ -16,10 +18,9 @@ function Header(props) {
     const intervalRef = useRef()
 
     // 获取 username
-    const username = memoryUtils.user.username
+    const username = props.user.username
 
     // 动态更新时间
-
     const getTime = () => {
         intervalRef.current = setInterval(() => {
             const currentTime = formateDate(Date.now())
@@ -34,7 +35,7 @@ function Header(props) {
     }
 
     // 动态更新标题
-    const getTitle = () => {
+    /* const getTitle = () => {
         const path = props.location.pathname
         let title
         menuList.forEach(item => {
@@ -48,8 +49,9 @@ function Header(props) {
             }
         })
         return title
-    }
-    const title = getTitle()
+    } */
+    // 利用redux读取标题
+    const title = props.headTitle
 
     // 退出确认
     function logOut() {
@@ -61,9 +63,9 @@ function Header(props) {
             // 确认退出，删除数据并返回登录界面
             onOk() {
                 // 删除数据
-                storageUtils.removeUser()
-                memoryUtils.user = {}
-
+                // storageUtils.removeUser()
+                // memoryUtils.user = {}
+                props.logout()
                 // 返回登录界面
                 props.history.replace('/login')
             }
@@ -99,4 +101,11 @@ function Header(props) {
     )
 }
 
-export default withRouter(Header)
+// 容器组件
+export default connect(
+    state =>({
+        headTitle:state.headTitle,
+        user:state.user
+    }),
+    {logout}
+)(withRouter(Header))

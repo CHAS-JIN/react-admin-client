@@ -1,34 +1,31 @@
 import React from 'react'
+// 解决history不能跳转问题
+import { withRouter, Redirect } from 'react-router-dom';
+import {connect} from 'react-redux';
+
+import {login} from '../../redux/actions'
+
 import './index.less';
 import logo from '../../assets/images/logo.png'
 import { Form, Input, Button } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { reqLogin } from '../../api';
-import { message } from 'antd';
-// 解决history不能跳转问题
-import { withRouter, Redirect } from 'react-router-dom';
-
-import memoryUtils from '../../utils/memoryUtils'
-import storageUtils from '../../utils/storageUtils';
-
 
 function Login(props) {
 
-    const hasUser = memoryUtils.user
+    const hasUser = props.user
 
     // 如果已经登录，跳转到Admin
     if (hasUser && hasUser._id) {
-        return <Redirect to="/" />
+        return <Redirect to="/home" />
     }
 
-    // 提交表单且数据验证成功后回调事件
-    const onFinish = async (values) => {
+    // 提交表单并登录
+    const onFinish = /* async */ (values) => {
         const { username, password } = values
+        props.login(username,password)
         // 简化Promise对象使用，以同步编码方式(没有回调函数)实现异步流程
-        // debugger
         // 得到Promise异步执行成功的Value
-        const result = await reqLogin(username, password)
-        // console.log(result);
+        /* const result = await reqLogin(username, password)
         if (result.status === 0) { // 登录成功
             message.success('登录成功！')
             const user = result.data
@@ -37,16 +34,11 @@ function Login(props) {
             // 保存到缓存中
             storageUtils.setUser(user)
             // 跳转到管理界面
-            props.history.replace('/')
+            props.history.replace('/home')
         } else if (result.status === 1) { // 登录失败
             message.error(result.msg);
-        }
+        } */
     };
-
-    // 提交表单且数据验证失败后回调事件
-    const onFinishFailed = ({ values, errorFields, outOfDate }) => {
-        alert(values, errorFields, outOfDate);
-    }
 
     return (
         <div className='login'>
@@ -61,7 +53,6 @@ function Login(props) {
                     name="normal_login"
                     className="login-form"
                     onFinish={onFinish}
-                    onFinishFailed={onFinishFailed}
                 >
                     <Form.Item
                         name="username"
@@ -128,4 +119,7 @@ function Login(props) {
     )
 }
 
-export default withRouter(Login)
+export default connect(
+    state => ({user:state.user}),
+    {login}
+)(withRouter(Login))

@@ -161,6 +161,9 @@ export default class User extends Component {
         this.getUsers()
     }
 
+    componentWillUnmount(){
+    }
+
     render() {
         const { users, visible, user, roles } = this.state
         const title = (

@@ -1,9 +1,11 @@
 import React, { Component, createRef } from 'react';
+import {connect} from 'react-redux';
+
 import { Button, Card, message, Table, Modal, Input, Form } from 'antd';
+
 import { PAGE_SIZE } from '../../utils/constant';
 import { reqAddRole, reqRoles, reqUpdateRole } from '../../api';
 import AuthForm from './AuthForm'
-import memoryUtils from '../../utils/memoryUtils';
 import {formateDate} from '../../utils/dateUtils'
 
 const { Item } = Form
@@ -88,7 +90,7 @@ class Role extends Component {
     updateRole = async () => {
         const menus = this.authFormRef.current.state.checkedKeys
         const _id = this.state.role._id
-        const auth_name = memoryUtils.user.username
+        const auth_name = this.props.user.username
         const auth_time = new Date().getTime()
         const result = await reqUpdateRole(_id, menus, auth_time, auth_name)
         if (result.status === 0) {
@@ -194,4 +196,9 @@ class Role extends Component {
     }
 }
 
-export default Role;
+export default connect(
+    state=>({
+        user:state.user
+    }),
+    {}
+)(Role)
