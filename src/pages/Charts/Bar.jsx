@@ -9,7 +9,7 @@ class Bar extends Component {
         stores: [20, 10, 18, 20, 20, 20]
     }
 
-    update = () => {
+/*     update = () => {
         this.setState(state => ({
             sales: state.sales.map(sale => sale + 1),
             stores: state.stores.reduce((pre, store) => {
@@ -17,14 +17,14 @@ class Bar extends Component {
                 return pre
             },[])
         }))
-    }
+    } */
 
     getOption = () => {
         const { sales, stores } = this.state
         return {
-            title: {
+          /*   title: {
                 text: 'ECharts 入门示例'
-            },
+            }, */
             tooltip: {},
             legend: {
                 data: ['销量', '库存']
@@ -48,11 +48,11 @@ class Bar extends Component {
     render() {
         return (
             <>
-                <Card>
+                {/* <Card>
                     <Button type='primary' onClick={this.update}>更新</Button>
-                </Card>
+                </Card> */}
 
-                <Card title='柱状图'>
+                <Card/*  title='柱状图' */>
                     <ReactECharts option={this.getOption()} />
                 </Card>
             </>
